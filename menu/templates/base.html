@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Website{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <main>
+            {% block content %}
+            {% endblock %}
+        </main>
+    
+        <header>
+            <nav>
+                {% block menu %}
+                    {% load menu_tags %}
+                    {% draw_menu 'main_menu' as menu_data %}
+                    
+                    {% if menu_data.empty %}
+                        <p>Создайте меню через <a href="{% url 'admin:index' %}">/admin/</a></p>
+                    {% else %}
+                        {{ menu_data.html|safe }}
+                    {% endif %}
+                {% endblock %}
+            </nav>
+        </header>
+    
+    </div>
+</body>
+</html>
